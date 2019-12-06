@@ -14,11 +14,11 @@ func (t *TagController) Get(c *gin.Context) {
     data := make(map[string]interface{})
 
     where["name"] = c.DefaultQuery("name", "")
-	where["state"], _ = strconv.Atoi(c.DefaultQuery("state", "-1"))
+    where["state"], _ = strconv.Atoi(c.DefaultQuery("state", "-1"))
 
-	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	limit, _ := strconv.Atoi(c.DefaultQuery("page_size", "10"))
-	offset := (page - 1) * limit
+    page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+    limit, _ := strconv.Atoi(c.DefaultQuery("page_size", "10"))
+    offset := (page - 1) * limit
 
     tag := models.Tag{}
     data["total"] = tag.GetTotal(where)
