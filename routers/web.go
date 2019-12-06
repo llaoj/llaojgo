@@ -1,8 +1,8 @@
-package routes
+package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	"tech/app/controllers"
+	"laojgo/app/controllers"
 )
 
 func InitRouter() *gin.Engine {
@@ -19,11 +19,11 @@ func InitRouter() *gin.Engine {
 	// 简单的路由组: v1
 	v1 := r.Group("/api")
 	{
-		v1.GET("/ping", Controllers.Ping)
-		v1.POST("/user/create", Controllers.UserCreate)
-		v1.POST("/user/delete", Controllers.UserDestroy)
-		v1.POST("/user/update", Controllers.UserUpdate)
-		v1.POST("/users", Controllers.UserFindAll)
+		v1.GET("/ping", controllers.Ping)
+		// v1.POST("/user/create", controllers.UserCreate)
+		// v1.POST("/user/delete", controllers.UserDestroy)
+		// v1.POST("/user/update", controllers.UserUpdate)
+		// v1.POST("/users", controllers.UserFindAll)
 	}
 
 	return r

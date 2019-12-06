@@ -2,13 +2,13 @@ package main
 
 import (
 	"os"
-	_ "tech/config"
-	_ "tech/database"
-	"tech/routes"
+	"laojgo/config"
+	"laojgo/routers"
 )
 
 func main()  {
-	r := routes.InitRouter()
-	port := os.Getenv("HTTP_PORT")
+	r := routers.InitRouter()
+	sec, err := config.App.GetSection("server")
+	port := sec.Key("HTTP_PORT").MustInt(8080)
 	r.Run(":" + port)
 }
