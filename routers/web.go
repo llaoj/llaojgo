@@ -20,10 +20,7 @@ func InitRouter() *gin.Engine {
 	v1 := r.Group("/api")
 	{
 		v1.GET("/ping", controllers.Ping)
-		// v1.POST("/user/create", controllers.UserCreate)
-		// v1.POST("/user/delete", controllers.UserDestroy)
-		// v1.POST("/user/update", controllers.UserUpdate)
-		// v1.POST("/users", controllers.UserFindAll)
+        v1.GET("/tag", (&controllers.TagController{}).Get)
 	}
 
 	return r
