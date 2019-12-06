@@ -1,9 +1,11 @@
-package controllers
+package controller
 
 import (
-    "github.com/gin-gonic/gin"
     "strconv"
-    "laojgo/app/models"
+
+    "github.com/gin-gonic/gin"
+    
+    "laojgo/app/model"
 )
 
 type TagController struct {}
@@ -20,7 +22,7 @@ func (t *TagController) Get(c *gin.Context) {
     limit, _ := strconv.Atoi(c.DefaultQuery("page_size", "10"))
     offset := (page - 1) * limit
 
-    tag := models.Tag{}
+    tag := &model.Tag{}
     data["total"] = tag.GetTotal(where)
     data["list"] = tag.Get(offset, limit, where)
 

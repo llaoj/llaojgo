@@ -1,11 +1,11 @@
-package routers
+package router
 
 import (
     "github.com/gin-gonic/gin"
-    "laojgo/app/controllers"
+    "laojgo/app/controller"
 )
 
-func InitRouter() *gin.Engine {
+func Setup() *gin.Engine {
     r := gin.Default()
 
     // r.Static("/public", "./public") // 静态文件服务
@@ -19,8 +19,8 @@ func InitRouter() *gin.Engine {
     // 简单的路由组: v1
     v1 := r.Group("/api")
     {
-        v1.GET("/ping", controllers.Ping)
-        v1.GET("/tag", (&controllers.TagController{}).Get)
+        v1.GET("/ping", controller.Ping)
+        v1.GET("/tag", (&controller.TagController{}).Get)
     }
 
     return r
