@@ -2,10 +2,12 @@ package controller
 
 import (
     "strconv"
+    "net/http"
 
     "github.com/gin-gonic/gin"
     
     "laojgo/app/model"
+    "laojgo/pkg/e"
 )
 
 type TagController struct {}
@@ -26,9 +28,45 @@ func (t *TagController) Get(c *gin.Context) {
     data["total"] = tag.GetTotal(where)
     data["list"] = tag.Get(offset, limit, where)
 
-    c.JSON(200, gin.H{
-        "code" : 0,
-        "msg" : "ok",
+    c.JSON(http.StatusOK, gin.H{
+        "code" : e.SUCCESS,
+        "msg" : e.Msg(e.SUCCESS),
         "data" : data,
     })
+}
+
+//新增文章标签
+func (t *TagController) Add(c *gin.Context) {
+    var tag model.Tag
+    code := e.SUCCESS
+    msg := e.Msg(code)
+
+    defer c.JSON(http.StatusOK, gin.H{
+        "code" : &code,
+        "msg" : &msg,
+    })
+
+    if err := c.ShouldBind(&tag); err != nil {
+        code = e.INVALID_PARAMS
+        msg = err.Error()
+
+        return 
+    }
+
+    if tag.ExistByName(tag.Name) {
+        code = e.RESOURCE_NOT_EXIST
+        msg = e.Msg(code)
+
+        return
+    }
+
+    tag.Add()
+}
+
+//修改文章标签
+func (t *TagController) Edit(c *gin.Context) {
+}
+
+//删除文章标签
+func (t *TagController) Delete(c *gin.Context) {
 }

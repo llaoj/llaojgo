@@ -20,7 +20,16 @@ func Setup() *gin.Engine {
     v1 := r.Group("/api")
     {
         v1.GET("/ping", controller.Ping)
-        v1.GET("/tag", (&controller.TagController{}).Get)
+    }
+
+
+    tag := r.Group("/api/tag")
+    {
+        t := &controller.TagController{}
+        tag.GET("/", t.Get)
+        tag.POST("/", t.Add)
+        tag.PUT("/:id", t.Edit)
+        tag.DELETE("/:id", t.Delete)
     }
 
     return r

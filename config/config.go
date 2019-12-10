@@ -7,6 +7,9 @@ import (
 
 var App *ini.File
 
+var Server = &ServerSection{}
+var Database = &DatabaseSection{}
+
 func Setup() {
     var err error
     App, err = ini.Load("app.ini")

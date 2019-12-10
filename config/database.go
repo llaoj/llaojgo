@@ -7,5 +7,3 @@ type DatabaseSection struct {
     Host string
     Name string
 }
-
-var Database = &DatabaseSection{}
