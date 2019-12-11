@@ -5,6 +5,7 @@ var CodeMsg = map[int]string {
     ERROR : "失败",
     INVALID_PARAMS : "请求参数错误",
 
+	RESOURCE_EXIST : "资源已存在",
     RESOURCE_NOT_EXIST : "请求的资源不存在",
 }
 

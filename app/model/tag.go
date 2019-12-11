@@ -1,18 +1,9 @@
 package model
 
-import (
-    "time"
-    
-    "github.com/jinzhu/gorm"
-)
-
 type Tag struct {
     Model
 
-    Name string `json:"name" form:"name" binding:"required,max=10"`
-    State int `json:"state" binding:"oneof=0 1`
-    CreatedBy string `json:"created_by"`
-    UpdatedBy string `json:"updated_by"`
+    Name string `json:"name"`
 }
 
 func (t *Tag) TableName() string {
@@ -29,7 +20,7 @@ func (t *Tag) GetTotal(where interface {}) (count int){
     return
 }
 
-func (t *Tag)  ExistByName(name string) bool {
+func (t *Tag) ExistByName(name string) bool {
     db.Select("id").Where("name = ?", name).First(t)
     if t.ID > 0 {
         return true
@@ -37,18 +28,25 @@ func (t *Tag)  ExistByName(name string) bool {
     return false
 }
 
-func (t *Tag) Add() bool{
+func (t *Tag) ExistByID(id int) bool {
+    db.Select("id").Where("id = ?", id).First(t)
+    if t.ID > 0 {
+        return true
+    }
+
+    return false
+}
+
+func (t *Tag) Create() bool{
     db.Create(t)
 
     return true
 }
 
-func (t *Tag) BeforeCreate(scope *gorm.Scope) error {
-    scope.SetColumn("CreatedAt", time.Now().Unix())
-    return nil
+
+func (t *Tag) Update(data interface {}) bool {
+    db.Model(t).Updates(data)
+
+    return true
 }
 
-func (t *Tag) BeforeUpdate(scope *gorm.Scope) error {
-    scope.SetColumn("UpdatedAt", time.Now().Unix())
-    return nil
-}

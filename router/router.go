@@ -27,8 +27,8 @@ func Setup() *gin.Engine {
     {
         t := &controller.TagController{}
         tag.GET("/", t.Get)
-        tag.POST("/", t.Add)
-        tag.PUT("/:id", t.Edit)
+        tag.POST("/", t.Create)
+        tag.PUT("/:id", t.Update)
         tag.DELETE("/:id", t.Delete)
     }
 

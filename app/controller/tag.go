@@ -24,7 +24,7 @@ func (t *TagController) Get(c *gin.Context) {
     limit, _ := strconv.Atoi(c.DefaultQuery("page_size", "10"))
     offset := (page - 1) * limit
 
-    tag := &model.Tag{}
+    var tag model.Tag
     data["total"] = tag.GetTotal(where)
     data["list"] = tag.Get(offset, limit, where)
 
@@ -35,9 +35,12 @@ func (t *TagController) Get(c *gin.Context) {
     })
 }
 
+type createForm struct {
+    Name string `form:"name" binding:"required","max=10"`
+}
+
 //新增文章标签
-func (t *TagController) Add(c *gin.Context) {
-    var tag model.Tag
+func (t *TagController) Create(c *gin.Context) {
     code := e.SUCCESS
     msg := e.Msg(code)
 
@@ -46,27 +49,60 @@ func (t *TagController) Add(c *gin.Context) {
         "msg" : &msg,
     })
 
-    if err := c.ShouldBind(&tag); err != nil {
+    var form createForm
+    if err := c.ShouldBind(&form); err != nil {
         code = e.INVALID_PARAMS
         msg = err.Error()
 
         return 
     }
 
-    if tag.ExistByName(tag.Name) {
+    var tag model.Tag
+    if tag.ExistByName(form.Name) {
+        code = e.RESOURCE_EXIST
+        msg = e.Msg(code)
+
+        return
+    }
+
+    tag.Name = form.Name
+    tag.Create()
+}
+
+//删除文章标签
+func (t *TagController) Delete(c *gin.Context) {
+}
+
+type updateForm struct {
+    ID string `form:"id" binding:"required"`
+    Name string `form:"name" binding:"required","max=10"`
+}
+
+//修改文章标签
+func (t *TagController) Update(c *gin.Context) {
+    code := e.SUCCESS
+    msg := e.Msg(code)
+    defer c.JSON(http.StatusOK, gin.H{
+        "code" : &code,
+        "msg" : &msg,
+    })
+
+    var form updateForm
+    if err := c.ShouldBind(&form); err != nil {
+        code = e.INVALID_PARAMS
+        msg = err.Error()
+
+        return 
+    }
+
+    var tag model.Tag
+    tagId, _ := strconv.Atoi(form.ID)
+    if !tag.ExistByID(tagId) {
         code = e.RESOURCE_NOT_EXIST
         msg = e.Msg(code)
 
         return
     }
 
-    tag.Add()
-}
-
-//修改文章标签
-func (t *TagController) Edit(c *gin.Context) {
-}
-
-//删除文章标签
-func (t *TagController) Delete(c *gin.Context) {
+    tag.Update(form)
 }

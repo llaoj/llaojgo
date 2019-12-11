@@ -3,6 +3,7 @@ package model
 import (
     "log"
     "fmt"
+    "time"
 
     "github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/mysql"
@@ -34,8 +35,8 @@ func CloseDB() {
 }
 
 type Model struct {
-  ID        uint `gorm:"primary_key"`
-  CreatedAt int `json:"created_at"`
-  UpdatedAt int `json:"updated_at"`
-  DeletedAt int `json:"deleted_at"`
+    ID        uint `gorm:"primary_key" json:"id"`
+    CreatedAt time.Time `json:"created_at"`
+    UpdatedAt time.Time `json:"updated_at"`
+    DeletedAt *time.Time `json:"deleted_at"`
 }
