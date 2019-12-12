@@ -8,10 +8,10 @@ import (
     "laojgo/config"
 )
 
-var JwtSigningKey = []byte(config.App.JwtSigningKey)
+var jwtSigningKey = []byte(config.App.JwtSigningKey)
 
 type Claims struct {
-    UserId string `json:"user_id"`
+    UserId string
     jwt.StandardClaims
 }
 
@@ -20,18 +20,18 @@ func GenerateJwt(user_id string) (ss string, err error) {
         user_id,
         jwt.StandardClaims {
             ExpiresAt : time.Now().Add(3 * time.Hour).Unix(),
-            Issuer : "gin-blog",
+            Issuer : config.App.Name,
         },
     }
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
-    ss, err = token.SignedString(JwtSigningKey)
+    ss, err = token.SignedString(jwtSigningKey)
 
     return
 }
 
 func ParseJwt(tokenString string) (*Claims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-        return JwtSigningKey, nil
+        return jwtSigningKey, nil
     })
 
     if token != nil {

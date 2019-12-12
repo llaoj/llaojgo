@@ -1,13 +1,13 @@
 package middleware
 
 import (
-    "time"
     "net/http"
 
     "github.com/gin-gonic/gin"
 
     "laojgo/pkg/util"
     "laojgo/pkg/e"
+
 )
 
 func Jwt() gin.HandlerFunc {
@@ -17,12 +17,11 @@ func Jwt() gin.HandlerFunc {
         if token == "" {
             code = e.INVALID_PARAMS
         } else {
-            claims, err := util.ParseJwt(token)
-            if err != nil || time.Now().Unix() > claims.ExpiresAt {
-                code = e.TOKEN_INVALID
+            _, err := util.ParseJwt(token)
+            if err != nil {
+                code = e.AUTH_TOKEN_INVALID
             }
         }
-
         if code != e.SUCCESS {
             c.JSON(http.StatusUnauthorized, gin.H{
                 "code" : code,

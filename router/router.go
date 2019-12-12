@@ -12,7 +12,6 @@ func Setup() *gin.Engine {
     gin.SetMode(config.Server.RunMode)
 
     r := gin.Default()
-    r.Use(middleware.Jwt())
 
     // r.Static("/public", "./public") // 静态文件服务
     // r.LoadHTMLGlob("views/**/*") // 载入html模板目录
@@ -23,13 +22,21 @@ func Setup() *gin.Engine {
     // r.GET("/post/index", Controllers.Post)
 
     // 简单的路由组: v1
-    v1 := r.Group("/api")
+    api := r.Group("/api")
+
+    auth := api.Group("/auth")
+    {
+        a := &controller.AuthController{}
+        auth.POST("/", a.GetToken)
+    }
+
+    v1 := api.Group("/v1")
+    v1.Use(middleware.Jwt())
     {
         v1.GET("/ping", controller.Ping)
     }
 
-
-    tag := r.Group("/api/tag")
+    tag := v1.Group("/tag")
     {
         t := &controller.TagController{}
         tag.GET("/", t.Get)
