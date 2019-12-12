@@ -15,3 +15,8 @@ type Model struct {
  - 1 如果模型有DeletedAt字段，调用Delete删除该记录时，将会设置DeletedAt字段为当前时间，而不是直接将记录从数据库中删除
  - 2 如果模型有 CreatedAt字段，该字段的值将会是初次创建记录的时间
  - 3 如果模型有UpdatedAt字段，该字段的值将会是每次更新记录的时间。
+
+### 接口鉴权
+ - 每个接口需要附加一个query参数(token)
+ - jwt 通过调用 [auth]() 接口获得
+ - jwt 有效期默认为 1h

@@ -7,6 +7,8 @@ var CodeMsg = map[int]string {
 
 	RESOURCE_EXIST : "资源已存在",
     RESOURCE_NOT_EXIST : "请求的资源不存在",
+
+    TOKEN_INVALID : "Token无效",
 }
 
 func Msg(code int) string {

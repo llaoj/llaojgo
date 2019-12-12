@@ -2,11 +2,17 @@ package router
 
 import (
     "github.com/gin-gonic/gin"
+
+    "laojgo/config"
     "laojgo/app/controller"
+    "laojgo/app/middleware"
 )
 
 func Setup() *gin.Engine {
+    gin.SetMode(config.Server.RunMode)
+
     r := gin.Default()
+    r.Use(middleware.Jwt())
 
     // r.Static("/public", "./public") // 静态文件服务
     // r.LoadHTMLGlob("views/**/*") // 载入html模板目录

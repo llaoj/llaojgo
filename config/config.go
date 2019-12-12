@@ -5,23 +5,31 @@ import (
     "github.com/go-ini/ini"
 )
 
-var App *ini.File
+var inif *ini.File
 
-var Server = &ServerSection{}
-var Database = &DatabaseSection{}
+var Server = &serverSection{}
+var Database = &databaseSection{}
+var App = &appSection{}
 
 func Setup() {
     var err error
-    App, err = ini.Load("app.ini")
+    inif, err = ini.Load("app.ini")
     if err != nil {
         log.Fatalf("Fail to parse 'app.ini': %v", err)
     }
-    err = App.Section("server").MapTo(Server)
+
+    err = inif.Section("server").MapTo(Server)
     if err != nil {
-        log.Fatalf("App.MapTo Server err: %v", err)
+        log.Fatalf("inif.MapTo Server err: %v", err)
     }
-    err = App.Section("database").MapTo(Database)
+
+    err = inif.Section("database").MapTo(Database)
     if err != nil {
-        log.Fatalf("App.MapTo Database err: %v", err)
+        log.Fatalf("inif.MapTo Database err: %v", err)
+    }
+    
+    err = inif.Section("app").MapTo(App)
+    if err != nil {
+        log.Fatalf("inif.MapTo Database err: %v", err)
     }
 }

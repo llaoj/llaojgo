@@ -1,6 +1,6 @@
 package config
 
-type ServerSection struct {
+type serverSection struct {
     RunMode string
     HttpPort int
 }

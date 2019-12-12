@@ -1,6 +1,6 @@
 package config
 
-type DatabaseSection struct {
+type databaseSection struct {
     Type string
     User string
     Password string
