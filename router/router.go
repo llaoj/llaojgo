@@ -16,25 +16,16 @@ func Setup() *gin.Engine {
     // r.Static("/public", "./public") // 静态文件服务
     // r.LoadHTMLGlob("views/**/*") // 载入html模板目录
 
-    // web路由
-    // r.GET("/", Controllers.Home)
-    // r.GET("/about", Controllers.About)
-    // r.GET("/post/index", Controllers.Post)
-
-    // 简单的路由组: v1
-    api := r.Group("/api")
-
-    auth := api.Group("/auth")
+    // 接口鉴权
+    auth := r.Group("/auth")
     {
         a := &controller.AuthController{}
         auth.POST("/", a.GetToken)
     }
 
-    v1 := api.Group("/v1")
+    v1 := r.Group("/v1")
     v1.Use(middleware.Jwt())
-    {
-        v1.GET("/ping", controller.Ping)
-    }
+    v1.GET("/ping", controller.Ping) //example
 
     tag := v1.Group("/tag")
     {
