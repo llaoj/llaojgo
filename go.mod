@@ -8,6 +8,7 @@ require (
 	github.com/go-ini/ini v1.51.0
 	github.com/jinzhu/gorm v1.9.11
 	github.com/kr/pretty v0.1.0 // indirect
+	github.com/sirupsen/logrus v1.4.2
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	gopkg.in/ini.v1 v1.51.0 // indirect
 )
