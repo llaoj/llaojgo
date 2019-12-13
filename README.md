@@ -18,5 +18,9 @@ type Model struct {
 
 ### 接口鉴权
  - 每个接口需要附加一个query参数(token)
- - jwt 通过调用 [auth]() 接口获得
+ - jwt 通过调用 [auth]() `base_url/auth`接口获得
  - jwt 有效期默认为 1h
+
+### 日志(logrus)
+ - 使用logrus,默认加载了App主日志实例,通过`log.App.Info/Warn...()`调用
+ - 支持自定义其他日志实例,参考App实列定义即可
