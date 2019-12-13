@@ -24,3 +24,6 @@ type Model struct {
 ### 日志(logrus)
  - 使用logrus,默认加载了App主日志实例,通过`log.App.Info/Warn...()`调用
  - 支持自定义其他日志实例,参考App实列定义即可
+
+### 编码规范
+[Uber Go 语言编码规范](https://github.com/xxjwxc/uber_go_guide_cn)
