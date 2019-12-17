@@ -13,8 +13,7 @@ var CodeMsg = map[int]string {
 }
 
 func Msg(code int) string {
-    msg, ok := CodeMsg[code]
-    if ok {
+    if msg, ok := CodeMsg[code]; ok {
         return msg
     }
 
