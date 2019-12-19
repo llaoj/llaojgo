@@ -10,9 +10,9 @@ import (
 )
 
 func main()  {
+    log.Setup()
 	config.Setup()
     model.Setup()
-    log.Setup()
 
 	r := router.Setup()
 	r.Run(":" + strconv.Itoa(config.Server.HttpPort))

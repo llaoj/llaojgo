@@ -21,11 +21,12 @@ func Setup() *gin.Engine {
     // 如果需要同时将日志写入文件和控制台，请使用以下代码。
     // gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 
-
     r := gin.Default()
 
     // r.Static("/public", "./public") // 静态文件服务
     // r.LoadHTMLGlob("views/**/*") // 载入html模板目录
+    
+    r.GET("/ping", controller.Ping)
 
     // 接口鉴权
     auth := r.Group("/auth")
@@ -36,7 +37,6 @@ func Setup() *gin.Engine {
 
     v1 := r.Group("/v1")
     v1.Use(middleware.Jwt())
-    v1.GET("/ping", controller.Ping) //example
 
     tag := v1.Group("/tag")
     {
