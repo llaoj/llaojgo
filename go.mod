@@ -24,4 +24,5 @@ require (
 	github.com/tebeka/strftime v0.1.3 // indirect
 	github.com/toolkits/concurrent v0.0.0-20150624120057-a4371d70e3e3 // indirect
 	gopkg.in/ini.v1 v1.51.0 // indirect
+	gopkg.in/yaml.v2 v2.2.2
 )

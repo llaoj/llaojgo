@@ -9,7 +9,7 @@ import (
 )
 
 func Setup() *gin.Engine {
-    gin.SetMode(config.Server.RunMode)
+    gin.SetMode(config.App.Server.RunMode)
 
     // 禁用控制台颜色，将日志写入文件时不需要控制台颜色。
     gin.DisableConsoleColor()

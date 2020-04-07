@@ -1,0 +1,11 @@
+name: laojgo
+server:
+  run_mode: release
+  http_port: 8080
+db:
+  default:
+    type: mysql
+    user: root
+    password: KnsHFk3BaMy=8a_p
+    host: rm-2ze3p80p6n7t5dx7ako.mysql.rds.aliyuncs.com:3306
+    db_name: laojgo

@@ -1,19 +1,19 @@
 package main
 
 import (
-	"strconv"
+    "strconv"
 
-	"laojgo/router"
-	"laojgo/config"
-	"laojgo/app/model"
-	"laojgo/pkg/log"
+    "laojgo/router"
+    "laojgo/config"
+    "laojgo/app/model"
+    "laojgo/pkg/log"
 )
 
 func main()  {
+    config.Setup()
     log.Setup()
-	config.Setup()
     model.Setup()
 
-	r := router.Setup()
-	r.Run(":" + strconv.Itoa(config.Server.HttpPort))
+    r := router.Setup()
+    r.Run(":" + strconv.Itoa(config.App.Server.HttpPort))
 }

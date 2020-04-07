@@ -8,7 +8,7 @@ import (
     "laojgo/config"
 )
 
-var jwtSigningKey = []byte(config.App.JwtSigningKey)
+var jwtSigningKey = []byte("2i#L7Hym@2#O1")
 
 type Claims struct {
     UserId string
