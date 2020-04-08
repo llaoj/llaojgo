@@ -5,7 +5,7 @@ import (
 
     jwt "github.com/dgrijalva/jwt-go"
 
-    "laojgo/config"
+    "laojgo/app"
 )
 
 var jwtSigningKey = []byte("2i#L7Hym@2#O1")
@@ -20,7 +20,7 @@ func GenerateJwt(user_id string) (ss string, err error) {
         user_id,
         jwt.StandardClaims {
             ExpiresAt : time.Now().Add(3 * time.Hour).Unix(),
-            Issuer : config.App.Name,
+            Issuer : app.Cfg.Name,
         },
     }
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)

@@ -3,13 +3,13 @@ package router
 import (
     "github.com/gin-gonic/gin"
 
-    "laojgo/config"
+    "laojgo/app"
     "laojgo/app/controller"
     "laojgo/app/middleware"
 )
 
 func Setup() *gin.Engine {
-    gin.SetMode(config.App.Server.RunMode)
+    gin.SetMode(app.Cfg.Server.RunMode)
 
     // 禁用控制台颜色，将日志写入文件时不需要控制台颜色。
     gin.DisableConsoleColor()

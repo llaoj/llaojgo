@@ -8,18 +8,18 @@ import (
     "github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/mysql"
 
-    "laojgo/config"
+    "laojgo/app"
 )
 
 var db *gorm.DB
 
 func Setup() {
     var err error
-    db, err = gorm.Open(config.App.Db.Default.Type, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local", 
-        config.App.Db.Default.User, 
-        config.App.Db.Default.Password, 
-        config.App.Db.Default.Host, 
-        config.App.Db.Default.DbName))
+    db, err = gorm.Open(app.Cfg.Db.Default.Type, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local", 
+        app.Cfg.Db.Default.User, 
+        app.Cfg.Db.Default.Password, 
+        app.Cfg.Db.Default.Host, 
+        app.Cfg.Db.Default.DbName))
     if err != nil {
         log.Fatalf("error: %v", err)
     }
